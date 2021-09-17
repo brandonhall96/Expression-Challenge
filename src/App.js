@@ -1,6 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component }  from 'react';
+import axios from 'axios';
+
+const hitBackend = () => {
+    axios.get('/test')
+    .then((response) => {
+    console.log(response.data)
+    })
+    }
+
 
 function App() {
   return (
@@ -17,6 +26,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          <button onClick={hitBackend}>Send request</button>
         </a>
       </header>
     </div>
@@ -24,3 +34,4 @@ function App() {
 }
 
 export default App;
+
