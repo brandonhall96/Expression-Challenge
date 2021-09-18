@@ -5,6 +5,10 @@ import axios from 'axios';
 import home from './components/home'
 import { Route, Switch, Redirect, Router } from 'react-router-dom';
 import Footer from './components/Footer';
+import Header from './components/Header';
+
+
+
 
 const hitBackend = () => {
     axios.get('/test')
@@ -16,7 +20,8 @@ const hitBackend = () => {
 
 function App() {
   return (
-    <div className="App">
+      <div className="App">
+        <Header />
         <Switch>
             <Route exact path ='/' component={home} />
 
@@ -34,6 +39,7 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
 

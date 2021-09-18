@@ -1,13 +1,18 @@
+import { EuiBottomBar, EuiSpacer, EuiText } from '@elastic/eui';
 import React from 'react';
 
 const Footer = () => {
-    return (
-        <footer className="footer bg-dark">
-            <div className="container text-center">
-                <span className="text-muted">@2021 Built by Brandon</span>
-            </div>
-        </footer>
-    )
-}
+  return (
+    <div className="footer">
+      <EuiText>
+        Follow us on Facebook!
+      </EuiText>
+      <EuiSpacer size="xl" />
+      <EuiSpacer size="xl" />
+      <EuiBottomBar style={{position: 'sticky'}}  bottom={10}>
+      </EuiBottomBar>
+    </div>
+  );
+};
 
 export default Footer;

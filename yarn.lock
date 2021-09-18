@@ -38,6 +38,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@elastic/datemath@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@elastic/datemath/-/datemath-5.0.3.tgz#7baccdab672b9a3ecb7fe8387580670936b58573"
+  integrity sha512-8Hbr1Uyjm5OcYBfEB60K7sCP6U3IXuWDaLaQmYv3UxgI4jqBWbakoemwWvsqPVUvnwEjuX6z7ghPZbefs8xiaA==
+  dependencies:
+    tslib "^1.9.3"
+
 "@elastic/eui@^38.0.0":
   version "38.0.0"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-38.0.0.tgz#0b57088330b4b07a782c29611f28318544848196"
@@ -6072,6 +6079,11 @@ mkdirp@^0.5.1, mkdirp@^0.5.5, mkdirp@~0.5.0, mkdirp@~0.5.1:
   integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
   dependencies:
     minimist "^1.2.5"
+
+moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
 ms@2.0.0:
   version "2.0.0"
