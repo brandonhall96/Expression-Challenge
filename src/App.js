@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import React, { Component }  from 'react';
 import axios from 'axios';
+import home from './components/home'
+import { Route, Switch, Redirect, Router } from 'react-router-dom';
 
 const hitBackend = () => {
     axios.get('/test')
@@ -14,21 +16,19 @@ const hitBackend = () => {
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-          <button onClick={hitBackend}>Send request</button>
-        </a>
-      </header>
+        <Switch>
+            <Route exact path ='/' component={home} />
+
+        </Switch>
+        
+
+
+        
+   
+        
+  
+       
+      
     </div>
   );
 }
