@@ -7,7 +7,7 @@ import { Route, Switch, Redirect, Router } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Table from './components/Table';
-
+import Form from './components/Form';
 
 
 
@@ -25,8 +25,10 @@ function App() {
         <Header />
         <Switch>
             <Route exact path ='/' component={home} />
+            
 
         </Switch>
+        <Form />
         <Table />
         <Footer />
         
