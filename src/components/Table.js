@@ -6,17 +6,25 @@ import axios from 'axios';
 
 import {
   EuiBasicTable,
-  EuiLink,
   EuiHealth,
+  EuiButton
 } from '@elastic/eui';
 
 
 
-
-
-
-
 const Table = () => {
+
+    const handleDelete = async (id) => {
+        
+        let url = 'http://localhost:8080/api/site/'+id
+        axios.delete(url)
+        .then( res => {
+            console.log(res)
+        })
+
+    }
+
+
   const columns = [
     {
       field: 'title',
@@ -48,9 +56,23 @@ const Table = () => {
       dataType: 'boolean',
       
     },
+    {
+        name: 'Actions',
+        render: (item) => {
+            
+            return (
+                <EuiButton 
+                    color='danger' iconType='trash' onClick={handleDelete(item._id)}
+                />
+            )
+
+        }
+
+    }
+    
+
   ];
 
-  
 
   const getRowProps = (item) => {
     const { id } = item;
@@ -71,7 +93,6 @@ const Table = () => {
     };
   };
 
-  
 
     const [siteData, setSiteData] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -94,15 +115,25 @@ const Table = () => {
         
     },[siteData])
 
+    
+
+
+
+
+
   return (
 
+   
+
     isLoaded ? 
+
     <EuiBasicTable
       items={siteData}
       rowHeader="firstName"
       columns={columns}
       rowProps={getRowProps}
       cellProps={getCellProps}
+    //   selection={selection}
     />
     :null
   );
