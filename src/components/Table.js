@@ -10,27 +10,7 @@ import {
   EuiHealth,
 } from '@elastic/eui';
 
-/*
-Example user object:
 
-{
-  id: '1',
-  firstName: 'john',
-  lastName: 'doe',
-  github: 'johndoe',
-  dateOfBirth: Date.now(),
-  nationality: 'NL',
-  online: true
-}
-
-Example country object:
-
-{
-  code: 'NL',
-  name: 'Netherlands',
-  flag: '🇳🇱'
-}
-*/
 
 
 
@@ -41,60 +21,32 @@ const Table = () => {
     {
       field: 'title',
       name: 'Title',
-      sortable: true,
-      'data-test-subj': 'firstNameCell',
-      mobileOptions: {
-        render: (item) => (
-          <span>
-            {item.firstName}{' '}
-            <EuiLink href="#" target="_blank">
-              {item.lastName}
-            </EuiLink>
-          </span>
-        ),
-        header: false,
-        truncateText: false,
-        enlarge: true,
-        fullWidth: true,
-      },
+      
+        
     },
     {
       field: 'city',
       name: 'City',
       truncateText: true,
-      render: (name) => (
-        <EuiLink href="#" target="_blank">
-          {name}
-        </EuiLink>
-      ),
-      mobileOptions: {
-        show: false,
-      },
+      
     },
     
     {
       field: 'state',
       name: 'State',
       dataType: 'string',
-      render: (date) => formatDate(date, 'dobLong'),
+   
     },
     {
       field: 'date',
       name: 'Date',
-      render: (countryCode) => {
-     
-        
-      },
+      
     },
     {
       field: 'siteNumber',
       name: 'Site number',
       dataType: 'boolean',
-      render: (online) => {
-        const color = online ? 'success' : 'danger';
-        const label = online ? 'Online' : 'Offline';
-        return <EuiHealth color={color}>{label}</EuiHealth>;
-      },
+      
     },
   ];
 
@@ -122,14 +74,16 @@ const Table = () => {
   
 
     const [siteData, setSiteData] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
     
     
     useEffect(() =>{
-        let url = 'localhost:8080/api/site/'
+        let url = 'http://localhost:8080/api/site/'
         axios.get(url)
         .then((res) =>{
-            setSiteData(res.data.site)
-            console.log(res);
+            setSiteData(res.data.sites)
+            console.log(res.data.sites);
+            setIsLoaded(true);
             
         })
     }, [])
@@ -141,6 +95,8 @@ const Table = () => {
     },[siteData])
 
   return (
+
+    isLoaded ? 
     <EuiBasicTable
       items={siteData}
       rowHeader="firstName"
@@ -148,6 +104,7 @@ const Table = () => {
       rowProps={getRowProps}
       cellProps={getCellProps}
     />
+    :null
   );
 };
 
