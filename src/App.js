@@ -6,6 +6,7 @@ import home from './components/home'
 import { Route, Switch, Redirect, Router } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Table from './components/Table';
 
 
 
@@ -26,15 +27,11 @@ function App() {
             <Route exact path ='/' component={home} />
 
         </Switch>
+        <Table />
         <Footer />
         
 
 
-        
-   
-        
-  
-       
       
     </div>
   );
