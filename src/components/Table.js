@@ -16,7 +16,7 @@ const Table = () => {
 
     const handleDelete = async (id) => {
         
-        let url = 'http://localhost:8080/api/site/'+id
+        let url = `http://localhost:8080/api/site/${id}`
         axios.delete(url)
         .then( res => {
             console.log(res)
@@ -26,6 +26,20 @@ const Table = () => {
 
 
   const columns = [
+    {
+        name: 'Actions',
+        render: (item) => {
+            return(
+                <EuiButton
+                
+                 />
+
+            )
+        }
+
+    },
+
+
     {
       field: 'title',
       name: 'Title',
@@ -62,7 +76,7 @@ const Table = () => {
             
             return (
                 <EuiButton 
-                    color='danger' iconType='trash' onClick={handleDelete(item._id)}
+                    color='danger' iconType='trash' onClick={() => handleDelete(item._id)}
                 />
             )
 
@@ -109,12 +123,7 @@ const Table = () => {
         })
     }, [])
     
-    useEffect(() => {
-        
-        
-        
-    },[siteData])
-
+   
     
 
 
