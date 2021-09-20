@@ -7,7 +7,7 @@ import { Route, Switch, Redirect, Router } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Table from './components/Table';
-import Form from './components/Form';
+
 
 
 
@@ -28,7 +28,6 @@ function App() {
             
 
         </Switch>
-        <Form />
         <Table />
         <Footer />
         
