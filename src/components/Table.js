@@ -62,9 +62,20 @@ const Table = () => {
         let url = 'http://localhost:8080/api/site/'
         axios.post(url, payload)
         .then( res => {
-            
-            console.log(res)
+            let url = 'http://localhost:8080/api/site/'
+            axios.get(url)
+            .then((res) =>{
+            setSiteData(res.data.sites)
+            console.log(res.data.sites);
+            setIsLoaded(true);
+            setTitle('')
+            setCity('')
+            setState('')
+            setDate('')
+            setSiteNumber('')
+            setNights('')
         })
+    })
     }
 
 
