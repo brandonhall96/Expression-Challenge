@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {
   EuiHeader,
   EuiHeaderLogo,
-  EuiSwitch,
   EuiSpacer,
 } from '@elastic/eui';
 
@@ -19,11 +18,9 @@ const Header = () => {
 
   return (
     <div>
-     
-  
       <EuiSpacer />
       <EuiHeader position={position}>
-          <h1>Camp Destinations</h1>
+          <h1>Camp Site Scheduler</h1>
       </EuiHeader>
     </div>
   );

@@ -4,19 +4,14 @@ import axios from 'axios';
 import '@elastic/eui/dist/eui_theme_amsterdam_light.css';
 
 
-
 import {
   EuiBasicTable,
-  EuiHealth,
   EuiButton,
   EuiFlexGroup,
   EuiFlexItem,
   EuiFieldText,
-  EuiFormRow
-
+  EuiFormRow,
 } from '@elastic/eui';
-
-
 
 const Table = () => {
 
@@ -29,8 +24,25 @@ const Table = () => {
     const [siteNumber, setSiteNumber] = useState('');
     const [nights, setNights] = useState('');
     const [editId, setEditId] = useState('');
+    const [sortField, setSortField] = useState('title');
+    const [sortDirection, setSortDirection] = useState('asc');
+    
+    const onTableChange = ({ page = {}, sort={} }) => {
+        console.log(sorting)
+    
+        const { field: sortField, direction: sortDirection } = sort;
+        
+        setSortField(sortField);
+        setSortDirection(sortDirection);
+      };
 
-
+      const sorting = {
+        sort: {
+          field: sortField,
+          direction: sortDirection,
+        },
+      };
+    
     const handleTitle = (e) => {
         setTitle(e.target.value);
         // console.log(title)
@@ -103,8 +115,6 @@ const Table = () => {
 
     }
 
-
-
     const handleDelete = async (id) => {
         
         let url = `http://localhost:8080/api/site/${id}`
@@ -124,7 +134,6 @@ const Table = () => {
 
     }
 
-
     const startEdit = (item) => {
         setTitle(item.title)
         setCity(item.city)
@@ -135,11 +144,6 @@ const Table = () => {
         setEditId(item._id)
 
     }
-
-
-
-
-
 
   const columns = [
     {
@@ -156,41 +160,43 @@ const Table = () => {
 
     },
 
-
     {
       field: 'title',
       name: 'Title',
       sortable: true,
+      truncateText: true,
       
-        
+      
     },
     {
       field: 'city',
       name: 'City',
-      truncateText: true,
+      sortable: true,
       
     },
     
     {
       field: 'state',
       name: 'State',
-      dataType: 'string',
+      sortable: true,
    
     },
     {
       field: 'date',
       name: 'Date',
+      sortable: true,
       
     },
     {
       field: 'siteNumber',
-      name: 'Site number',
-      dataType: 'boolean',
+      name: 'Site Number',
+      sortable: true,
       
     },
     {
       field: 'nights',
       name: 'Nights',
+      sortable: true,
       
     },
     {
@@ -207,33 +213,7 @@ const Table = () => {
 
     }
     
-
   ];
-
-
-  const getRowProps = (item) => {
-    const { id } = item;
-    return {
-      'data-test-subj': `row-${id}`,
-      className: 'customRowClass',
-      onClick: () => {},
-    };
-  };
-
-  const getCellProps = (item, column) => {
-    const { id } = item;
-    const { field } = column;
-    return {
-      className: 'customCellClass',
-      'data-test-subj': `cell-${id}-${field}`,
-      textOnly: true,
-    };
-  };
-
-  
-
-    
-    
     useEffect(() =>{
         let url = 'http://localhost:8080/api/site/'
         axios.get(url)
@@ -245,80 +225,71 @@ const Table = () => {
         })
     }, [])
     
-   
-    
-
-
-
-
 
   return (
-      <div>
+    <div>
+        <EuiFlexGroup style={{ maxWidth: 600 }}>
+            <EuiFlexItem>
+            <EuiFormRow label="Title" >
+                <EuiFieldText
+                placeholder="Title"
+                value={title}
+                onChange={handleTitle}
+                />
+            </EuiFormRow>
+            <EuiFormRow label="City" >
+                <EuiFieldText
+                placeholder="City"
+                value={city}
+                onChange={handleCity}
+                />
+            </EuiFormRow>
+            <EuiFormRow label="State" >
+                <EuiFieldText
+                placeholder="State"
+                value={state}
+                onChange={handleState}
+                />
+            </EuiFormRow>
+            <EuiFormRow label="Date" >
+                <EuiFieldText
+                placeholder="Date"
+                value={date}
+                onChange={handleDate}
+                />
+            </EuiFormRow>
+            <EuiFormRow label="Site Number" >
+                <EuiFieldText
+                placeholder="Site Number"
+                value={siteNumber}
+                onChange={handleSiteNumber}
+                />
+            </EuiFormRow>
+            <EuiFormRow label="Nights" >
+                <EuiFieldText
+                placeholder="Nights"
+                value={nights}
+                onChange={handleNights}
+                />
+            </EuiFormRow>
+            </EuiFlexItem>
 
-    <EuiFlexGroup style={{ maxWidth: 600 }}>
-        <EuiFlexItem>
-        <EuiFormRow label="Title" >
-            <EuiFieldText
-            placeholder="Title"
-            value={title}
-            onChange={handleTitle}
-            />
-        </EuiFormRow>
-        <EuiFormRow label="City" >
-            <EuiFieldText
-            placeholder="City"
-            value={city}
-            onChange={handleCity}
-            />
-        </EuiFormRow>
-        <EuiFormRow label="State" >
-            <EuiFieldText
-            placeholder="State"
-            value={state}
-            onChange={handleState}
-            />
-        </EuiFormRow>
-        <EuiFormRow label="Date" >
-            <EuiFieldText
-            placeholder="Date"
-            value={date}
-            onChange={handleDate}
-            />
-        </EuiFormRow>
-        <EuiFormRow label="Site Number" >
-            <EuiFieldText
-            placeholder="Site Number"
-            value={siteNumber}
-            onChange={handleSiteNumber}
-            />
-        </EuiFormRow>
-        <EuiFormRow label="Nights" >
-            <EuiFieldText
-            placeholder="Nights"
-            value={nights}
-            onChange={handleNights}
-            />
-        </EuiFormRow>
-        </EuiFlexItem>
-
-        <EuiFlexItem grow={false}>
-        <EuiFormRow hasEmptyLabelSpace>
-            <EuiButton type="submit" onClick={handleSubmit}>Submit</EuiButton>
-        </EuiFormRow>
-        </EuiFlexItem>
-    </EuiFlexGroup>
+            <EuiFlexItem grow={false}>
+            <EuiFormRow hasEmptyLabelSpace>
+                <EuiButton type="submit" onClick={handleSubmit}>Submit</EuiButton>
+            </EuiFormRow>
+            </EuiFlexItem>
+        </EuiFlexGroup>
 
    
-
     { isLoaded ? 
-
     <EuiBasicTable
       items={siteData}
-      rowHeader="firstName"
       columns={columns}
-      rowProps={getRowProps}
-      cellProps={getCellProps}
-    //   selection={selection}
+      sorting={sorting}
+      onChange={onTableChange}
+      hasActions={true}
+    
     />
     :null
 }
