@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <EuiText>
-        Follow us on Facebook!
+        Built by Brandon Hall
       </EuiText>
       <EuiSpacer size="xl" />
       <EuiSpacer size="xl" />

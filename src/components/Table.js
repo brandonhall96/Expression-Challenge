@@ -28,6 +28,7 @@ const Table = () => {
     const [date, setDate] = useState('');
     const [siteNumber, setSiteNumber] = useState('');
     const [nights, setNights] = useState('');
+    const [editId, setEditId] = useState('');
 
 
     const handleTitle = (e) => {
@@ -60,22 +61,46 @@ const Table = () => {
         e.preventDefault();
         const payload = {title, city, state, date, siteNumber, nights}
         let url = 'http://localhost:8080/api/site/'
-        axios.post(url, payload)
-        .then( res => {
-            let url = 'http://localhost:8080/api/site/'
-            axios.get(url)
-            .then((res) =>{
-            setSiteData(res.data.sites)
-            console.log(res.data.sites);
-            setIsLoaded(true);
-            setTitle('')
-            setCity('')
-            setState('')
-            setDate('')
-            setSiteNumber('')
-            setNights('')
+        if(editId === '') {
+  
+            axios.post(url, payload)
+            .then( res => {
+                setIsLoaded(false)
+                axios.get(url)
+                    .then((res) =>{
+                        setSiteData(res.data.sites)
+                        console.log(res.data.sites);
+                        setIsLoaded(true);
+                        setTitle('')
+                        setCity('')
+                        setState('')
+                        setDate('')
+                        setSiteNumber('')
+                        setNights('')
+                    })
         })
-    })
+        }
+        else {
+            url = `http://localhost:8080/api/site/${editId}`
+            axios.put(url, payload)
+            .then( res => {
+                setIsLoaded(false)
+                axios.get('http://localhost:8080/api/site/')
+                .then((res) =>{
+                    setSiteData(res.data.sites)
+                    console.log(res.data.sites);
+                    setIsLoaded(true);
+                    setTitle('')
+                    setCity('')
+                    setState('')
+                    setDate('')
+                    setSiteNumber('')
+                    setNights('')
+            })
+        })
+            
+        }
+
     }
 
 
@@ -100,6 +125,20 @@ const Table = () => {
     }
 
 
+    const startEdit = (item) => {
+        setTitle(item.title)
+        setCity(item.city)
+        setState(item.state)
+        setDate(item.date)
+        setSiteNumber(item.siteNumber)
+        setNights(item.nights)
+        setEditId(item._id)
+
+    }
+
+
+
+
 
 
   const columns = [
@@ -108,7 +147,7 @@ const Table = () => {
         render: (item) => {
             return(
                 <EuiButton
-                color='primary' iconType='documentEdit' onClick 
+                color='primary' iconType='documentEdit' onClick={() => startEdit(item)}
                 
                  />
 
